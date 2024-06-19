@@ -126,7 +126,7 @@ Input: Integers k, t, and N, followed by a space-separated collection of strings
 Output: The strings BestMotifs resulting from running GibbsSampler(Dna, k, t, N) with 20 random starts. Remember to use pseudocounts!
 '''
 def GibbsSampler(Dna, k, t, N, type_score = 'basic'):
-    MotifsRandom = RandomMotif(Dna, k, t)
+    MotifsRandom = RandomizedMotifSearch(Dna, k, t)
     BestMotifs = MotifsRandom
 
     for j in range(N):
@@ -146,8 +146,8 @@ def RepeatedGibbsMotifSearch(Dna, k, t, N, type_score = 'basic'):
     best_score_overall = float('inf')
     best_entropy_score = float('inf')
     memory = []
-    for i in range(20):
-        print(i)
+    for i in range(1000):
+        
         current_motifs = GibbsSampler(Dna, k, t, N, type_score = 'basic')
         current_score = Score(current_motifs)
         entropy_score = sum(entropy(np.array([item for item in Profile(current_motifs).values()])))
