@@ -58,7 +58,7 @@ Input: Integers k and t, followed by a space-separated collection of strings Dna
 Output: A collection BestMotifs resulting from running RandomizedMotifSearch(Dna, k, t) 1,000 times. Remember to use pseudocounts!
 '''	
 
-def RandomizedMotifSearch(Dna, k, t):
+def RandomizedMotifSearch(Dna, k, t, type_score = 'basic'):
 	motifs = []
 	for item in Dna:
 		rand_i = random.randint(0,len(item) - k)
@@ -71,19 +71,19 @@ def RandomizedMotifSearch(Dna, k, t):
 		Profile = consensus_profile(motifs)
 		#print(Profile.shape)
 		#motifs = Motifs(Profile, Dna)
-		if Score(motifs, type_score = 'entropy') < Score(bestmotifs, type_score = 'entropy'):
+		if Score(motifs, type_score) < Score(bestmotifs, type_score):
 			bestmotifs = motifs
 		else:
 			return(bestmotifs)
 
 
 
-def RepeatedRandomizedMotifSearch(Dna, k, t):
+def RepeatedRandomizedMotifSearch(Dna, k, t, type_score = 'basic'):
     best_motifs_overall = " "
     best_score_overall = float('inf')
     for i in range(1000):
         current_motifs = RandomizedMotifSearch(Dna, k, t)
-        current_score = Score(current_motifs)
+        current_score = Score(current_motifs, type_score = 'basic')
         if current_score < best_score_overall:
             best_motifs_overall = current_motifs
             best_score_overall = current_score
@@ -93,25 +93,6 @@ def RepeatedRandomizedMotifSearch(Dna, k, t):
 '''
 Helper Functions
 '''
-def ProfileRandomKmer(text, k, profile):
-    max_prob = -1
-    best_kmer = text[0:k]
-    probs = []
-    kmers = []
-    for i in range(len(text) - k + 1):
-        kmer = text[i:i+k]
-        prob = 1
-        for j, nucleotide in enumerate(kmer):
-            prob *= profile[nucleotide][j]
-        probs.append(prob)
-        kmers.append(kmer)  
-        if prob > max_prob:
-            max_prob = prob
-            best_kmer = kmer
-    norm_prob = np.array(probs)/np.sum(np.array(probs))
-    bestish_kmer = np.random.choice(kmers, p = norm_prob)
-    return(bestish_kmer)
-    return best_kmer
 	
 def ProfileMostProbableKmer(text, k, profile):
     max_prob = -1
@@ -152,7 +133,7 @@ def GibbsSampler(Dna, k, t, N, type_score = 'basic'):
         i = random.randint(0, len(Dna) - 1)
         Motifs_no_i = MotifsRandom[:i] + MotifsRandom[i+1:]
         profile = Profile(Motifs_no_i)
-        Motif_i = ProfileRandomKmer(Dna[i], len(profile['A']), profile)
+        Motif_i = ProfileMostProbableKmer(Dna[i], len(profile['A']), profile)
         MotifsRandom[i] = Motif_i
         if Score(MotifsRandom, type_score) < Score(BestMotifs, type_score):
             BestMotifs = Motifs
@@ -160,14 +141,14 @@ def GibbsSampler(Dna, k, t, N, type_score = 'basic'):
 
 
 	
-def RepeatedGibbsMotifSearch(Dna, k, t, N):
+def RepeatedGibbsMotifSearch(Dna, k, t, N, type_score = 'basic'):
     best_motifs_overall = " "
     best_score_overall = float('inf')
     best_entropy_score = float('inf')
     memory = []
     for i in range(20):
         print(i)
-        current_motifs = GibbsSampler(Dna, k, t, N)
+        current_motifs = GibbsSampler(Dna, k, t, N, type_score = 'basic')
         current_score = Score(current_motifs)
         entropy_score = sum(entropy(np.array([item for item in Profile(current_motifs).values()])))
         if current_score < best_score_overall:
