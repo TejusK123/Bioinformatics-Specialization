@@ -118,7 +118,7 @@ Code Challenge: Solve the Generating Theoretical Spectrum Problem.
 '''
 
 
-def gen_theoretical_spectrum(peptide):
+def gen_theoretical_spectrum(peptide, AminoAcidMass = AminoAcidMass):
 	n = len(peptide)
 	peptide_weight = sum(AminoAcidMass[item] for item in peptide)
 	pos_subpeptides = [(peptide * 2)[i : i + j] for i in range(n) for j in range(1,n)]
@@ -199,7 +199,7 @@ consistent -
 Checks if a peptide calculated spectrum is consistent with its theoretical spectrum 
 '''
 
-def Expand(candidates):
+def Expand(candidates, AminoAcidMass = AminoAcidMass):
 
 	aminoacids = list(AminoAcidMass.keys())
 	if candidates == []:
@@ -213,7 +213,7 @@ def Expand(candidates):
 def Mass(peptide, AminoAcidMass = AminoAcidMass):
 	return(sum([AminoAcidMass[item] for item in peptide]))
 
-def gen_cyclospectrum(peptide):
+def gen_cyclospectrum(peptide, AminoAcidMass = AminoAcidMass):
 	n = len(peptide)
 	peptide_weight = sum(AminoAcidMass[item] for item in peptide)
 	pos_subpeptides = [(peptide * 2)[i : i + j] for i in range(n) for j in range(1,n)]
@@ -232,7 +232,7 @@ Code Challenge: Implement CyclopeptideSequencing.
 '''
 
 
-def CyclopeptideSequencing(Spectrum):
+def CyclopeptideSequencing(Spectrum, AminoAcidMass = AminoAcidMass):
 	CandidatePeptides = []
 	FinalPeptides = []
 	Flag = True
@@ -243,7 +243,7 @@ def CyclopeptideSequencing(Spectrum):
 		for peptide in CandidatePeptides:
 
 			if Mass(peptide) == Spectrum[-1]:
-				if (gen_cyclospectrum(peptide) == Spectrum):
+				if (gen_cyclospectrum(peptide, AminoAcidMass) == Spectrum):
 					toadd = [str(AminoAcidMass[item]) for item in peptide]
 					if toadd not in FinalPeptides:
 						FinalPeptides.append(toadd)
