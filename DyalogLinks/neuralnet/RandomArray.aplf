@@ -1,1 +1,0 @@
- RandomArray←{?⍵⍴0}
