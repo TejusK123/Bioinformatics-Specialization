@@ -1,0 +1,12 @@
+ NormalArray←{
+   ⍝ ⍵ Shape of the array
+   ⍝ Makes an array that follows a normal distribution
+
+     U1←?⍵⍴0
+     U2←?⍵⍴0
+     s←0.5*⍨¯2×⍟U1
+     c←2○2×○U2
+     s×c
+
+
+ }

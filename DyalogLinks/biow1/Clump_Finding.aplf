@@ -1,0 +1,11 @@
+ Clump_Finding←{
+     k←⍺
+     seqs←⍵
+
+     PatternCount←{+/(⊂⍺)≡¨(⊂⍤⊢⌺(≢⍺)⊢⍵)}
+     PatternCountAll←{⍵ PatternCount seqs}
+
+     (4=PatternCountAll¨∪⊂⍤⊢⌺k⊢seqs)/(∪⊂⍤⊢⌺k⊢seqs)
+
+
+ }
