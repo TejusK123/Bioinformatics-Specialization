@@ -1,5 +1,0 @@
-R←A SquaredErrorDistortion B;Euclidean_Distance
-
-
- Euclidean_Distance←{*∘0.5+/⍺*∘2⍤-⍵}
- R←(≢B)÷⍨+/2*⍨⌊⌿B∘.Euclidean_Distance⍨A
