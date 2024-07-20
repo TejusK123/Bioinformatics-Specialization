@@ -1,0 +1,14 @@
+R←k LloydAlgo Data;Centers_Prev;Centers;mat;Euclidean_Distance;ChooseCenters
+ Euclidean_Distance←{*∘0.5+/⍺*∘2⍤-⍵}
+ ChooseCenters←{{/∘⍳∘≢⍨⍵}¨((=∘(⌊/)⍨)¨⊂[1]⍵)}
+ Centers←k↑Data
+ Centers_Prev←Centers
+ mat←Centers∘.Euclidean_Distance Data
+ Centers←{((+⌿)÷⊃∘⍴)↑⍵}¨{Data/⍨,↑(ChooseCenters mat)=⍵}¨⍳k
+ :While Centers_Prev≢Centers
+     Centers_Prev←Centers
+     mat←Centers∘.Euclidean_Distance Data
+     Centers←{((+⌿)÷⊃∘⍴)↑⍵}¨{Data/⍨,↑(ChooseCenters mat)=⍵}¨⍳k
+ :EndWhile
+
+ R←Centers

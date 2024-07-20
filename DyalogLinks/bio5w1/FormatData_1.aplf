@@ -1,0 +1,8 @@
+R←FormatData_1 A;Data;k;Points
+
+
+ Data←⊃⎕NGET A 1
+ k←⍎1⌷⊃Data
+ Points←⍎¨1↓Data
+
+ R←(k Points)
