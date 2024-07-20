@@ -1,0 +1,64 @@
+]LINK.Create bio "DyalogLinks\bio5w1"
+]map
+
+⍝ Code Challenge: Implement the FarthestFirstTraversal clustering heuristic.
+⍝      Input: Integers k and m followed by a set of points Data in m-dimensional space.
+⍝      Output: A set Centers consisting of k points (centers) resulting from applying FarthestFirstTraversal(Data, k),
+⍝      where the first point from Data is chosen as the first center to initialize the algorithm.
+
+⍝Function Definition within the Link
+⍝  R←A FarthestFirstTraveled B;Centers;Euclidean_Distance;first_iter;iter
+⍝  Euclidean_Distance←{*∘0.5+/⍺*∘2⍤-⍵}
+⍝  Centers←1⌷B
+⍝  first_iter←(=∘(⌈/)⍨Centers∘.Euclidean_Distance B)/B
+⍝  Centers←Centers,first_iter
+⍝  :While A≠≢Centers ⋄ iter←B/⍨=∘(⌈/)⍨⌊⌿B∘.Euclidean_Distance⍨Centers ⋄ Centers←Centers,iter ⋄ :EndWhile
+⍝  R←Centers
+
+(k Data) ← bio.FormatData_1 'Downloads\dataset_30181_2 (2).txt'
+
+k bio.FarthestFirstTraveled Data
+
+⍝ Squared Error Distortion Problem: Compute the squared error distortion of a set of data points with respect to a set of centers.
+
+⍝ Input: A set of points Data and a set of centers Centers.
+⍝ Output: The squared error distortion Distortion(Data, Centers).
+⍝ Code Challenge: Solve the Squared Error Distortion Problem.
+
+⍝ Input: Integers k and m, followed by a set of centers Centers and a set of points Data.
+⍝ Output: The squared error distortion Distortion(Data, Centers).
+
+⍝Function Definition within the Link
+⍝ R←A SquaredErrorDistortion B;Euclidean_Distance
+
+
+⍝  Euclidean_Distance←{*∘0.5+/⍺*∘2⍤-⍵}
+⍝  R←(≢B)÷⍨+/2*⍨⌊⌿B∘.Euclidean_Distance⍨A
+
+(Centers Data) ← bio.FormatData_2 'Downloads\dataset_30170_3.txt'
+
+Centers bio.SquaredErrorDistortion Data
+
+⍝ Code Challenge: Implement the Lloyd algorithm for k-means clustering.
+
+⍝ Input: Integers k and m followed by a set of points Data in m-dimensional space.
+⍝ Output: A set Centers consisting of k points (centers) resulting from applying the Lloyd algorithm to Data and Centers, where the first k points from Data are selected as the first k centers.  You should report your answers to at least three decimal points.
+
+⍝ R←k LloydAlgo Data;Centers_Prev;Centers;mat;Euclidean_Distance;ChooseCenters
+⍝  Euclidean_Distance←{*∘0.5+/⍺*∘2⍤-⍵}
+⍝  ChooseCenters←{{/∘⍳∘≢⍨⍵}¨((=∘(⌊/)⍨)¨⊂[1]⍵)}
+⍝  Centers←k↑Data
+⍝  Centers_Prev←Centers
+⍝  mat←Centers∘.Euclidean_Distance Data
+⍝  Centers←{((+⌿)÷⊃∘⍴)↑⍵}¨{Data/⍨,↑(ChooseCenters mat)=⍵}¨⍳k
+⍝  :While Centers_Prev≢Centers
+⍝      Centers_Prev←Centers
+⍝      mat←Centers∘.Euclidean_Distance Data
+⍝      Centers←{((+⌿)÷⊃∘⍴)↑⍵}¨{Data/⍨,↑(ChooseCenters mat)=⍵}¨⍳k
+⍝  :EndWhile
+
+⍝  R←Centers
+
+(k Data) ← bio.FormatData_1 'Downloads\dataset_30171_3 (2).txt'
+
+k bio.LloydAlgo Data
