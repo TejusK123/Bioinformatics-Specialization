@@ -1,0 +1,9 @@
+R←FormatData_Prob2 A;Data;Centers;Points
+
+ Data←⊃⎕NGET A 1
+ Centers←1↓Data[⍳1-⍨Data⍳⊂'--------']
+ Points←2↓Data~Centers
+ Centers←⍎¨Centers
+ Points←⍎¨Points
+
+ R←(Centers Points)
