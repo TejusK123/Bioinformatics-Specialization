@@ -1,6 +1,6 @@
 import numpy as np 
 import networkx as nx
-import time
+
 
 '''
 Code Challenge: Solve the Change Problem. The DPChange pseudocode is reproduced below for your convenience.
@@ -134,7 +134,7 @@ Output: The length of a longest path in the graph, followed by a longest path as
 '''
 
 def longest_path(G, s, sink):
-    s_time = time.time()
+    
     start_node = s
     topoorder = nx.topological_sort(G)
     dist = dict.fromkeys(G.nodes, -float('inf'))
@@ -164,7 +164,7 @@ def longest_path(G, s, sink):
 
     #My manual implementation works like 95% of the time I don't know what the edge case is
     
-    return(dist[sink], nx.dag_longest_path(G), time.time() - s_time)
+    return(dist[sink], nx.dag_longest_path(G))
 
 
 
