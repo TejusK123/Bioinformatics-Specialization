@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # importing data
 # -----------------------------------------------
-with open(r"C:\Users\tkoti\Desktop\bioinformatics\Bioinformatics5\colon_cancer.txt") as f:
+with open(r"colon_cancer.txt") as f:
 	lines = f.readlines()
 
 	lines = [[float(num) for num in item.split(' ')] for item in lines]
@@ -13,7 +13,7 @@ with open(r"C:\Users\tkoti\Desktop\bioinformatics\Bioinformatics5\colon_cancer.t
 cancer_confirmed = np.array(lines)
 
 
-with open(r"C:\Users\tkoti\Desktop\bioinformatics\Bioinformatics5\colon_healthy.txt") as f:
+with open(r"colon_healthy.txt") as f:
 	lines = f.readlines()
 
 	lines = [[float(num) for num in item.split(' ')] for item in lines]
@@ -25,7 +25,7 @@ healthy_confirmed = np.array(lines)
 oracle_data = np.concatenate([cancer_confirmed,healthy_confirmed])
 
 
-with open(r"C:\Users\tkoti\Desktop\bioinformatics\Bioinformatics5\colon_test.txt") as f:
+with open(r"colon_test.txt") as f:
 	lines = f.readlines()
 
 	lines = [[float(num) for num in item.split(' ')] for item in lines]
